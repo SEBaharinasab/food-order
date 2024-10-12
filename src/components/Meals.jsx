@@ -1,5 +1,6 @@
-import useHttp from "../hooks/useHttp";
-import MealItem from "./MealItem";
+import useHttp from "../hooks/useHttp.js";
+import Error from "./Error.jsx";
+import MealItem from "./MealItem.jsx";
 
 /**
  * By using empty {} for the arguments of the useHttp hook, the useCallback
@@ -16,8 +17,8 @@ export default function Meals() {
 		error,
 	} = useHttp("http://localhost:3000/meals", requestConfig, []);
 
-	if (isLoading) return <p>Fetching meals...</p>;
-	if (error) return <p>Error</p>;
+	if (isLoading) return <p className={"center"}>Fetching meals...</p>;
+	if (error) return <Error title={"Failed to fetch meals"} message={error.message} />;
 
 	return (
 		<ul id="meals">
