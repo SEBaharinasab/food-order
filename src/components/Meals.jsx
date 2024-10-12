@@ -1,20 +1,23 @@
-import { useEffect, useState } from "react";
+import useHttp from "../hooks/useHttp";
 import MealItem from "./MealItem";
 
-export default function Meals() {
-	const [loadedMeals, setLoadedMeals] = useState([]);
+/**
+ * By using empty {} for the arguments of the useHttp hook, the useCallback
+ * function is called inside the hook in an infinite loop. To fix the error, we
+ * use a variable outside the component function and assign {} to it.
+ * Also we can use NULL for hook argument.✓✓
+ * */
+const requestConfig = {};
 
-	useEffect(() => {
-		async function fetchMeals() {
-			const response = await fetch("http://localhost:3000/meals");
-			const data = await response.json();
-			if (!response.ok) {
-				// console.log(data);
-			}
-			setLoadedMeals(data);
-		}
-		fetchMeals();
-	}, []);
+export default function Meals() {
+	const {
+		data: loadedMeals,
+		isLoading,
+		error,
+	} = useHttp("http://localhost:3000/meals", requestConfig, []);
+
+	if (isLoading) return <p>Fetching meals...</p>;
+	if (error) return <p>Error</p>;
 
 	return (
 		<ul id="meals">
