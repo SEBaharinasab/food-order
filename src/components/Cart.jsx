@@ -16,7 +16,7 @@ export default function Cart() {
 		<Modal
 			className="cart"
 			open={progress === "cart"}
-			onClose={progress === "cart" ? hideCart : null}>
+			onScape={progress === "cart" ? hideCart : null}>
 			<h2>Your Cart</h2>
 			<ul>
 				{items.map(item => (

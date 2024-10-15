@@ -32,7 +32,7 @@ export default function Checkout() {
 	}
 
 	return (
-		<Modal open={progress === "checkout"} onClose={hideCheckout}>
+		<Modal open={progress === "checkout"} onScape={hideCheckout}>
 			<form onSubmit={handleSubmit}>
 				<h2>checkout</h2>
 				<p>Total Amount: {currencyFormatter.format(totalPrice)}</p>
